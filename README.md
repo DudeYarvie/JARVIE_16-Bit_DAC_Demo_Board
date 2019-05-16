@@ -10,7 +10,11 @@
 * 2Kbit I2C EEPROM (e.g. store board S/N, calibration constants to adjust DAC non-linearities, etc.)
 * Supports 3.3V and 5V SPI and I2C buses
 
-## Electrical Architecture 
+## Hardware Architecture 
+### Block Diagram
+### Jumper Selections
+### DAC
+### EEPROM
 
 
 ## SOFTWARE
