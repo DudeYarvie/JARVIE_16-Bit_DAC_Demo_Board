@@ -12,6 +12,7 @@
 
 ## Hardware Architecture 
 ### Block Diagram
+![Demo_Board_Block_Diagram](https://github.com/DudeYarvie/JARVIE_16-Bit_DAC_Demo_Board/blob/master/Reference%20Docs/JARViE_DAC_DEMO_Block_Diagram.png)
 ### Jumper Selections
 ### DAC
 ### EEPROM
