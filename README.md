@@ -10,6 +10,8 @@
 * 2Kbit I2C EEPROM (e.g. store board S/N, calibration constants to adjust DAC non-linearities, etc.)
 * Supports 3.3V and 5V SPI and I2C buses
 
+##  QUICK START PROCEDURE
+
 ## Hardware Architecture 
 ### Block Diagram
 ![Demo_Board_Block_Diagram](https://github.com/DudeYarvie/JARVIE_16-Bit_DAC_Demo_Board/blob/master/Reference%20Docs/JARViE_DAC_DEMO_Block_Diagram.png)
