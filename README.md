@@ -1,5 +1,7 @@
 # JARViE_DAC_Demo_Board
  The heart of the demo board are two LTC2642 16-bit DACs. They enable the DAC Demo Board to generate -5 to +5V signals on either of two output channels. Output channels may be updated asynchronously or synchronously. When updating synchronously, the same voltage will be produced on each output channel at the same time instance.
+ 
+![Demo_Board_Annotated_IMG](https://github.com/DudeYarvie/JARVIE_16-Bit_DAC_Demo_Board/blob/master/Reference%20Docs/JARViE_DAC_DEMO_Board_Annotate.png)
 
 ## Features
 * Two +/- 5V @ 25 mA max rail-to-rail buffered voltage output channels
