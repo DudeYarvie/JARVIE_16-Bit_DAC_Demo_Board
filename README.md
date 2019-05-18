@@ -14,6 +14,15 @@
 ### Block Diagram
 ![Demo_Board_Block_Diagram](https://github.com/DudeYarvie/JARVIE_16-Bit_DAC_Demo_Board/blob/master/Reference%20Docs/JARViE_DAC_DEMO_Block_Diagram.png)
 ### Jumper Selections
+| Jumper Reference| Description |
+|:---:|:---|
+| JP1 | Selects the reference voltage for both DACs.  Use JP1 pin 2 to supply a +6V max external voltage.  Populate U2 and place a jumper between JP1 pins 2 and 3 to select +2.5V.  Place jumper between JP1 pins 1 and 2 to select +5V |
+| JP2 |  Sets DAC0 to uni (output 0V to +VREF) or bipolar (output +VREF to -VREF) mode.  In bipolar mode, set JP4 and JP5 to EXT supplies and apply up to +/- 18V to +V-EXT and -V_EXT  |
+| JP3 | Sets DAC1 to uni (output 0V to +VREF) or bipolar (output +VREF to -VREF) mode.  In bipolar mode, set JP4 and JP5 to EXT supplies and apply up to +/- 18V to +V-EXT and -V_EXT |
+| JP4 | Sets DAC output buffers and digital potentiometer +V supply to *+V_EXT* or onboard *+5V_REG* |
+| JP5 | Sets DAC output buffers and digital potentiometer -V supply to *-V_EXT* or onboard GND |
+| JP8 | Sets the asynchronous or synchronous control of DAC0 and DAC1.  Asynchronous mode allows the DAC outputs to be set to different values at different times.  Synchronous mode sets the DAC outputs to the same value at the same time. |
+
 ### DAC
 ### EEPROM
 
