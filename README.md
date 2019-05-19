@@ -4,6 +4,7 @@
 ![Demo_Board_Annotated_IMG](https://github.com/DudeYarvie/JARVIE_16-Bit_DAC_Demo_Board/blob/master/Reference%20Docs/JARViE_DAC_DEMO_Board_Annotate.png)
 
 ## Features
+* Board size = 2.6" x 2.8"
 * Two +/- 5V @ 25 mA max rail-to-rail buffered voltage output channels
 * DACs may be updated asynchronously or synchronously
 * DAC +5V reference with trimming to adjust reference between 0 to +5V in 40mV increments   
