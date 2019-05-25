@@ -14,6 +14,9 @@
 * Supports 3.3V and 5V SPI and I2C buses
 
 ##  QUICK START PROCEDURE
+1. Connect the Arduino or Linduino controller to the DAC Demo Board per the illustration below.
+2. Upload the controller MCU with the firmware (.ino file) in the *src* directory.
+3. Set DAC VREF, unipolar/bipolar mode and output voltage using the CMD listed in the *Software* section below.
 
 ## Hardware Architecture 
 ### Block Diagram
@@ -32,4 +35,9 @@
 ### EEPROM
 
 
-## SOFTWARE
+## SOFTWARE USAGE
+1. Pull/dowload src repo.  
+2. Copy files onto your local machine. into a parent directory named after the .ino file
+3. Download the latest Arduino IDE if it doesn't exist on computer PC already.
+4. Open the .ino file
+5. Ensure 
