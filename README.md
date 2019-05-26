@@ -18,6 +18,8 @@
 2. Upload the controller MCU with the firmware (.ino file) in the *src* directory.
 3. Set DAC VREF, unipolar/bipolar mode and output voltage using the CMD listed in the *Software* section below.
 
+**Setting VREF, or the output mode via software will not set the hardware VREF or bipolar/unipolar mode. The jumpers need to be placed in their proper positions in order to accomplish this.**
+
 ## Hardware Architecture 
 ### Block Diagram
 ![Demo_Board_Block_Diagram](https://github.com/DudeYarvie/JARVIE_16-Bit_DAC_Demo_Board/blob/master/Reference%20Docs/JARViE_DAC_DEMO_Block_Diagram.png)
@@ -41,6 +43,7 @@
 5. Open the .ino file and upload the firmware to the UNO or Linduino 
 
 ### Commands
+The following commands are supported by the demo board firmware.  The commands are sent to the demo board controller from a PC through a serial conenction.  All commands must be terminated with a newline character (\n).  The command syntax is command <*parameter*>\n. Example, sending *VREF 5.0V\n* to the controller, tells the firmware that the DAC VREF jumper JP1 is set in the 5V configuration.
 
 #### **DAC0** <*dac_code = unsigned int*> 
 
