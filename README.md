@@ -13,7 +13,7 @@
 * 2Kbit I2C EEPROM (e.g. store board S/N, calibration constants to adjust DAC non-linearities, etc.)
 * Supports 3.3V and 5V SPI and I2C buses
 
-##  QUICK START PROCEDURE
+##  Quick Start Procedure
 1. Connect the Arduino or Linduino controller to the DAC Demo Board per the illustration below.
 2. Upload the controller MCU with the firmware (.ino file) in the *src* directory.
 3. Set DAC VREF, unipolar/bipolar mode and output voltage using the CMD listed in the *Software* section below.
@@ -31,13 +31,45 @@
 | JP5 | Sets DAC output buffers and digital potentiometer -V supply to *-V_EXT* or onboard GND |
 | JP8 | Sets the asynchronous or synchronous control of DAC0 and DAC1.  Asynchronous mode allows the DAC outputs to be set to different values at different times.  Synchronous mode sets the DAC outputs to the same value at the same time. |
 
-### DAC
-### EEPROM
 
+## Software 
+### Usage
+1. Pull/download src repo  
+2. Download the latest Arduino IDE if it doesn't exist on computer PC already
+3. Copy all files onto your local machine. into a parent directory named after the .ino file
+4. Connect the Arduino UNO or Linduino to your PC
+5. Open the .ino file and upload the firmware to the UNO or Linduino 
 
-## SOFTWARE USAGE
-1. Pull/dowload src repo.  
-2. Copy files onto your local machine. into a parent directory named after the .ino file
-3. Download the latest Arduino IDE if it doesn't exist on computer PC already.
-4. Open the .ino file
-5. Ensure 
+### Commands
+
+#### **DAC0** <*dac_code = unsigned int*> 
+
+|Parameters: |**dac_code** - 16-bit DAC output voltage code|
+|:---:|:---|
+|Usage Example| **DAC0 65534**, sets DAC0 output voltage to full-scale or DAC0 VREF voltage|
+
+#### **DAC1** <*dac_code = unsigned int*> 
+
+|Parameters: |**dac_code** - 16-bit DAC output voltage code|
+|:---:|:---|
+|Usage Example| **DAC1 65534**, sets DAC1 output voltage to full-scale or DAC1 VREF voltage|
+
+#### **DAC0_MODE** <*mode_setting = byte*> 
+
+|Parameters: |**mode_setting** - DAC unipolar or bipolar mode|
+|:---:|:---|
+|Usage Example| **DAC0_MODE 0**, sets DAC0 output mode to unipoloar (output voltages range from 0 to +VREF)|
+
+#### **DAC1_MODE** <*mode_setting = byte*> 
+
+|Parameters: |**mode_setting** - DAC unipolar or bipolar mode|
+|:---:|:---|
+|Usage Example| **DAC1_MODE 1**, sets DAC1 output mode to bipoloar (output voltages range from -VREF to +VREF)|
+
+#### **VREF** <*VREF_setting = float*> 
+
+|Parameters: |**VREF_setting** - DAC VREF voltage|
+|:---:|:---|
+|Usage Example| **VREF 2.5**, tells firmware that dac VREF is set to 2.5V on the demo board|
+
+This command is required in order for the board to generae accurate DAC output voltage 
