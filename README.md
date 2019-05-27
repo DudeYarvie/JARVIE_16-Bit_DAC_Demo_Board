@@ -20,6 +20,8 @@
 
 **Setting VREF, or the output mode via software will not set the hardware VREF or bipolar/unipolar mode. The jumpers need to be placed in their proper positions in order to accomplish this.**
 
+![Quick_Connect_Diagram](https://github.com/DudeYarvie/JARVIE_16-Bit_DAC_Demo_Board/blob/master/Reference%20Docs/JARViE_DAC_DEMO_Quick_Connect_Diagram.png)
+
 ## Hardware Architecture 
 ### Block Diagram
 ![Demo_Board_Block_Diagram](https://github.com/DudeYarvie/JARVIE_16-Bit_DAC_Demo_Board/blob/master/Reference%20Docs/JARViE_DAC_DEMO_Block_Diagram.png)
