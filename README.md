@@ -51,30 +51,30 @@ The following commands are supported by the demo board firmware.  The commands a
 
 |Parameters: |**dac_code** - 16-bit DAC output voltage code|
 |:---:|:---|
-|Usage Example| **DAC0 65534**, sets DAC0 output voltage to full-scale or DAC0 VREF voltage|
+|Usage Example| **DAC0 65534**, sets DAC0 output voltage to full-scale or DAC0 VREF voltage. DAC voltage = (dac_code/2^16) x VREF|
 
 #### **DAC1** <*dac_code = unsigned int*> 
 
 |Parameters: |**dac_code** - 16-bit DAC output voltage code|
 |:---:|:---|
-|Usage Example| **DAC1 65534**, sets DAC1 output voltage to full-scale or DAC1 VREF voltage|
+|Usage Example| **DAC1 65534**, sets DAC1 output voltage to full-scale or DAC1 VREF voltage. DAC voltage = (dac_code/2^16) x VREF|
 
 #### **DAC0_MODE** <*mode_setting = byte*> 
 
 |Parameters: |**mode_setting** - DAC unipolar or bipolar mode|
 |:---:|:---|
-|Usage Example| **DAC0_MODE 0**, sets DAC0 output mode to unipoloar (output voltages range from 0 to +VREF)|
+|Usage Example| **DAC0_MODE 0**, sets DAC0 output mode to unipoloar (output voltages range from 0 to +VREF). USER MUST SET JUMPER TO CORRECT POSITION ON DEMO BOARD!!!|
 
 #### **DAC1_MODE** <*mode_setting = byte*> 
 
 |Parameters: |**mode_setting** - DAC unipolar or bipolar mode|
 |:---:|:---|
-|Usage Example| **DAC1_MODE 1**, sets DAC1 output mode to bipoloar (output voltages range from -VREF to +VREF)|
+|Usage Example| **DAC1_MODE 1**, sets DAC1 output mode to bipoloar (output voltages range from -VREF to +VREF). USER MUST SET JUMPER TO CORRECT POSITION ON DEMO BOARD!!!|
 
 #### **VREF** <*VREF_setting = float*> 
 
 |Parameters: |**VREF_setting** - DAC VREF voltage|
 |:---:|:---|
-|Usage Example| **VREF 2.5**, tells firmware that dac VREF is set to 2.5V on the demo board|
+|Usage Example| **VREF 2.5**, tells firmware that dac VREF is set to 2.5V on the demo board. USER MUST SET JUMPER TO CORRECT POSITION ON DEMO BOARD!!!|
 
 This command is required in order for the board to generae accurate DAC output voltage 
