@@ -13,6 +13,11 @@
 * 2Kbit I2C EEPROM (e.g. store board S/N, calibration constants to adjust DAC non-linearities, etc.)
 * Supports 3.3V and 5V SPI and I2C buses
 
+## Ordering Info
+![JARViE_Tindie_store](https://d2ss6ovg47m0r5.cloudfront.net/images/tindie-logo@2x.png)
+
+[Check JARViE out on tindie!](https://www.tindie.com/stores/jarvie/)
+
 ##  Quick Start Procedure
 1. Connect the Arduino or Linduino controller to the DAC Demo Board per the illustration below.
 2. Upload the controller MCU with the firmware (.ino file) in the *src* directory.
