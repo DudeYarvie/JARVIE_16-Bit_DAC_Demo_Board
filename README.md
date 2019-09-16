@@ -12,6 +12,10 @@
 * External supply inputs for DAC output buffers and trim pot (+V = +15V, -V = -15V max)   
 * 2Kbit I2C EEPROM (e.g. store board S/N, calibration constants to adjust DAC non-linearities, etc.)
 * Supports 3.3V and 5V SPI and I2C buses
+* The demo board can generate DC voltages, as well as, arbitrary and AC waveforms.
+![SINE_WFM_EX](https://raw.githubusercontent.com/DudeYarvie/JARVIE_16-Bit_DAC_Demo_Board/master/Reference%20Docs/pics/SINE_wave.png)
+![TRI_WFM_EX](https://raw.githubusercontent.com/DudeYarvie/JARVIE_16-Bit_DAC_Demo_Board/master/Reference%20Docs/pics/TRI_wave.png)
+![SAW_WFM_EX](https://raw.githubusercontent.com/DudeYarvie/JARVIE_16-Bit_DAC_Demo_Board/master/Reference%20Docs/pics/SAW_wave.png)
 
 ## Ordering Info
 ![JARViE_Tindie_store](https://d2ss6ovg47m0r5.cloudfront.net/images/tindie-logo@2x.png)
