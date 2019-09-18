@@ -14,8 +14,6 @@ Usage:
               analog output voltage.
               -DAC1 <DAC 16-bit code>:  Sets DAC1 output voltage 
 References: LTC2642ACDD-16 16-bit DAC datasheet, DAC Demo Board schematic
-Versions: 1.0 - intial release
-          1.1 - 
 */
 
 
@@ -23,7 +21,6 @@ Versions: 1.0 - intial release
 #include <Wire.h>                       //Required for I2C  
 #include "EEPROM_24LC025.h"             //Demo boar EEPROM 
 #include "JARVIE_SPI.h"                 //SPI 
-//#include "USART.h"                      //USART
 
 
 /*GLOBALS*/
@@ -41,9 +38,7 @@ Versions: 1.0 - intial release
 /*DAC definitions*/
 //#define buf_size 1000
 enum DAC : byte{DAC1 = 1, DAC0 = 2};
-enum wvfm : byte{SQUARE = 0, TRI = 1, SAW = 3};
 byte selected_DAC; 
-double *sin_buf;
 
 
 /*System ID string*/
