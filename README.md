@@ -68,6 +68,14 @@ The following commands are supported by the demo board firmware.  The commands a
 |:---:|:---|
 |Usage Example| **DAC1 65534**, sets DAC1 output voltage to full-scale or DAC1 VREF voltage. DAC voltage = (dac_code/2^16) x VREF|
 
+#### **WFM** <*dac#*> <*WFM_type*> <*low voltage*> <*high voltage*> 
+
+|Parameters: |**dac#** - selects which DAC, 0 or 1, on the demo board generates the selected waveform. **WFM_type** - selects between sawtooth, sine, triangle and square waveforms. **low voltage** - lowest voltage DAC will output. **high voltage** - highest voltage DAC will output|
+|:---:|:---|
+|Usage Example| **WFM DAC0 SINE 12000 65000**, outputs a SINE wave on DAC0 output with a low voltage = +0.91V and a high voltage = +4.95V. DAC voltage = (dac_code/2^16) x VREF|
+
+
+**The following commands will be implemented in the next code version**
 #### **DAC0_MODE** <*mode_setting = byte*> 
 
 |Parameters: |**mode_setting** - DAC unipolar or bipolar mode|
