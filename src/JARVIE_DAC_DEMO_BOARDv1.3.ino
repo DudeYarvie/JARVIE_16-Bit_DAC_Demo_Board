@@ -1,7 +1,7 @@
-/*
+  /*
           JARVIE_DAC_DEMO_BOARD.ino v1.3
 Author: Jarvis Hill (hilljarvis@gmail.com)
-Date: 28-AUG-2019
+Date: 18-SEP-2019
 Purpose: Reference code for controlling the 16-bit LTC2642 DAC on the JARVIE DAC DEMO BOARD
 Usage:
          1. Download this firmware onto the Arduino 
@@ -14,6 +14,8 @@ Usage:
               analog output voltage.
               -DAC1 <DAC 16-bit code>:  Sets DAC1 output voltage 
 References: LTC2642ACDD-16 16-bit DAC datasheet, DAC Demo Board schematic
+Versions: 1.0 - intial release
+          1.1 - 
 */
 
 
@@ -21,6 +23,7 @@ References: LTC2642ACDD-16 16-bit DAC datasheet, DAC Demo Board schematic
 #include <Wire.h>                       //Required for I2C  
 #include "EEPROM_24LC025.h"             //Demo boar EEPROM 
 #include "JARVIE_SPI.h"                 //SPI 
+//#include "USART.h"                      //USART
 
 
 /*GLOBALS*/
@@ -38,8 +41,8 @@ References: LTC2642ACDD-16 16-bit DAC datasheet, DAC Demo Board schematic
 /*DAC definitions*/
 //#define buf_size 1000
 enum DAC : byte{DAC1 = 1, DAC0 = 2};
+enum wvfm : byte{SQUARE = 0, TRI = 1, SAW = 3};
 byte selected_DAC; 
-uint16_t *wvfm_buf;
 double *sin_buf;
 
 
@@ -129,11 +132,12 @@ int Host_Command()
   uint16_t low_volt = 0;
   char DAC_type[50];
   char wvfm_type[50];
+  char wvfm[50];
   char buf[200];
 
   //Read command string from host API
   temp = Read_cmd();
- 
+  //Serial.print(temp);
   //IDN? cmd
   if(strncmp(temp,"IDN?",strlen("IDN?"))==0)                    //IF host cmd is "IDN?"
   {
@@ -142,15 +146,27 @@ int Host_Command()
     Serial.flush();
   }
 
-  //Triangle wave cmd
-  if(strncmp(temp,"SAW",strlen("SAW"))==0)                    //IF host cmd is "IDN?"
+  //Waveform cmd
+  if(strncmp(temp,"WFM",strlen("WFM"))==0)                    //IF host cmd is "IDN?"
   {
-    sscanf(temp,"%s %u %u", wvfm_type, &low_volt, &hi_volt);  
-    sprintf(buf, "%u %u\n", low_volt, hi_volt);
+    sscanf(temp," %s %s %s %u %u", wvfm, DAC_type, wvfm_type, &low_volt, &hi_volt);  
+    sprintf(buf, "%s %s %s %u %u\n", wvfm, DAC_type, wvfm_type, low_volt, hi_volt);
     Serial.print(buf);
-    waveform(low_volt, hi_volt);
+    //Serial.flush();
+    //Serial.print(DAC_type);
+    if(strncmp(DAC_type,"DAC0",strlen("DAC0"))==0){
+      selected_DAC = DAC0;                //IF host cmd is "DAC0"
+    }
+    else if(strncmp(DAC_type,"DAC1",strlen("DAC1"))==0){
+      selected_DAC = DAC1;          //IF host cmd is "DAC1"
+    }
+    else{
+      free(temp);
+      return 0;
+    }
+    waveform(wvfm_type,low_volt, hi_volt);
+    
   }
-
 
   //Set DAC cmds
   if(strncmp(temp,"DAC",strlen("DAC"))==0){                    
@@ -241,103 +257,86 @@ void LTC_DAC_Load(byte DAC, uint16_t dac_code){
  * Purpose: Generate a specific user specified waveform
  * Note: 
 *************************************************************************************************************************************/
-void waveform(uint16_t low_volt, uint16_t hi_volt){
+void waveform(char *wfm, uint16_t low_volt, uint16_t hi_volt){
   
   //Local variables
   uint16_t i;
-  int buf_size, sin_buf_size;
-  int step_size = 0;
-  int index;
+  uint16_t buf_size, sin_buf_size;
+  uint16_t step_size = 0;
+  uint16_t index;
    
-  buf_size = 500;
-  sin_buf_size = 360;                                       //degrees of 1 cycles worth of values (do not change from 360)
+  buf_size = 500;                                             //waveform buffer.  Buf_size must be less than 500.
+  sin_buf_size = 360;                                         //degrees of 1 cycles worth of values (do not change from 360)
   step_size = (hi_volt - low_volt)/buf_size;
   index = 0;
-  wvfm_buf = (uint16_t *)malloc(sizeof(uint16_t)*buf_size);
+  uint16_t wvfm_buf[buf_size];                                //allocating memory in wvfm_buf
   
   //Init waveform buffer
   for (i =0; i<buf_size; i++){
     wvfm_buf[i] = 0;
-    //sin_buf[i] = 0.0000000;
   }
   delay(100);
 
   //Fill waveform buffer sawtooth (good)
-  /*
-  for (i=0; i<(hi_volt-low_volt); i+= step_size){
-    wvfm_buf[index]=low_volt+i;
-    index +=1;
-  }
-  */
-
-  //Impulse (incomplete, haven't started on this code yet)
-  /*
-  for (i=0; i<(hi_volt-low_volt); i+= step_size){
-    if (index < ((hi_volt-low_volt)/2)){
-      wvfm_buf[index]=hi_volt-i;
-    }
-    if (index > ((hi_volt-low_volt)/2)){
+  if(strncmp(wfm,"SAW",strlen("SAW"))==0){
+    for (i=0; i<(hi_volt-low_volt); i+= step_size){
       wvfm_buf[index]=low_volt+i;
+      index +=1;
     }
   }
-  */
   
-//  //Fill waveform buffer triangle (good)
-//  for (i=0; i<(hi_volt-low_volt)+step_size; i+=step_size){
-//    if (index <= (buf_size/2)){
-//      wvfm_buf[index]=low_volt+(i*2);
-//    }
-//    else{
-//      wvfm_buf[index]=wvfm_buf[index-1]-(step_size*2);
-//    }
-//    index +=1;
-//  }
-  
-
- 
-  //Fill waveform buffer sine (good)
-  for(int j = 0;j<=sin_buf_size; j++){
-    wvfm_buf[j]=int((hi_volt/2.0)*sin(float(radians(j)))+(hi_volt/2.0));
+  //Fill waveform buffer triangle
+  else if(strncmp(wfm,"TRI",strlen("TRI"))==0){
+    for (i=0; i<(hi_volt-low_volt)+step_size; i+=step_size){
+      if (index <= (buf_size/2)){
+        wvfm_buf[index]=low_volt+(i*2);
+      }
+      else{
+        wvfm_buf[index]=wvfm_buf[index-1]-(step_size*2);
+      }
+      index +=1;
+    }
   }
   
- 
+  //Fill waveform buffer sine
+  else if(strncmp(wfm,"SINE",strlen("SINE"))==0){
+    buf_size = sin_buf_size;
+    for(int j = 0;j<=buf_size; j++){
+      wvfm_buf[j]=uint16_t((hi_volt/2.0)*sin(float(radians(j)))+(hi_volt/2.0));
+    }
+  }
+
+  //Fill waveform buffer with square wave
+  else if(strncmp(wfm,"SQR",strlen("SQR"))==0){
+    for(int j = 0;j<=buf_size; j++){
+      if (j%2 == 0) wvfm_buf[j]= hi_volt;
+      else wvfm_buf[j]= low_volt;
+    }
+  }
+
+/*
   //Print the waveform buffer for debugging
-//  for(int j = 0;j<=sin_buf_size; j++){
-//    Serial.print(wvfm_buf[j]);
-//    Serial.print(" ");
-//    Serial.print(j);
-//    Serial.println("");
-//    //Serial.println(sin_buf[j]);
-//  }
-//   
-
-  /*Generate waveform*/
-  while(1){
-   /*
-   // Sawtooth and Triangle Waves 
-   for(index = 0; index < buf_size; index++){                   //loop for all waveforms other than sine
-     LTC_DAC_Load(DAC0, wvfm_buf[index]);
-   }
-   */
-   
-   
-   //Sine Wave
-   for(index = 0; index < sin_buf_size; index++){ 
-      LTC_DAC_Load(DAC0, wvfm_buf[index]);
-   }
-   
-
-   /*
-   //Square Wave
-   LTC_DAC_Load(DAC0, hi_volt);
-   delay(1);
-   LTC_DAC_Load(DAC0, low_volt);
-   delay(1);
-   */
-    
+  for(int j = 0;j<=buf_size; j++){
+    Serial.print(wvfm_buf[j]);
+    Serial.print(" ");
+    Serial.print(j);
+    Serial.println("");
+    //Serial.println(sin_buf[j]);
   }
+*/   
   
+  /*Generate waveform*/
+  while(!Serial.available()) //! Generate waveform until a key is pressed
+  {
+   //Write wfm buffer to DAC output   
+    for(index = 0; index < buf_size; index++){   //loop for all waveforms other than sine
+      LTC_DAC_Load(selected_DAC, wvfm_buf[index]);
+      
+    }
+  }  
+
 }
+
 
 /*SETUP*/
 void setup() {
@@ -353,12 +352,12 @@ void setup() {
   Wire.setClock(10000L);                        //set clk freq, 400kHz max (400000L)
   delay(100);
   
-  //Open Serial connection 
+  //Init USART
   Serial.begin(baud);
   while (!Serial) {
     ;                                          // wait for serial port to connect. Needed for native USB
   }
-  
+
   //Read demo board id_string
   Serial.print("Board ID: ");
   read_EEPROM(80,0,strlen(id_string));
@@ -370,8 +369,9 @@ void setup() {
   LTC_DAC_Load(DAC0, dac_code);
   delay(10);                            
   LTC_DAC_Load(DAC1, dac_code);
-  delay(10);                            
+  delay(10);         
 
+    
   Serial.flush();
 
 }
