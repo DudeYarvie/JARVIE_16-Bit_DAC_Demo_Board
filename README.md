@@ -44,6 +44,10 @@
 | JP5 | Sets DAC output buffers and digital potentiometer -V supply to *-V_EXT* or onboard GND |
 | JP8 | Sets the asynchronous or synchronous control of DAC0 and DAC1.  Asynchronous mode allows the DAC outputs to be set to different values at different times.  Synchronous mode sets the DAC outputs to the same value at the same time. |
 
+## Using the demo board with Linear Technologies QuikEval Software
+1. Follow the Linduino ***Setup*** section on the Analog Devices website [here](https://www.analog.com/en/design-center/evaluation-hardware-and-software/evaluation-development-platforms/linduino.html).  The ***Linduino Sketch*** can be placed on the Arduino UNO as well.
+2. Starting at address 0x0000, write the EEPROM on the JARViE demo board with the following ID string: ***LTC2642,Cls,D2642,01,01,DC,DC1096,--------------***
+3. Open the QuikEval software and make sure the demo board is identified as a "DC1096" Linear Technologies demo board.
 
 ## Software 
 ### Usage
